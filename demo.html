@@ -1,0 +1,66 @@
+<html>
+
+<head>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="./ReactElement.js"></script>
+  <script src="./ReactClass.js"></script>
+  <script src="./ReactDOMComponent.js"></script>
+  <script src="./ReactDOMTextComponent.js"></script>
+  <script src="./ReactCompositeComponent.js"></script>
+  <script src="./react.js"></script>
+  <script src="./reactDOM.js"></script>
+</head>
+
+<body>
+  <div id="container"></div>
+
+  <script>
+    var HelloMessage = React.createClass({
+      getInitialState: function () {
+        return { type: 'say:' };
+      },
+      changeType: function () {
+        this.props.name = '我已经被异步更新了，由于我使用了lastindex，所以大部分节点不需要被删除'
+        this.setState({ type: 'shout:' })
+      },
+      render: function () {
+        return React.createElement("div", {
+          onclick: this.changeType.bind(this)
+        }, this.state.type, "Hello ", this.props.name);
+      }
+    });
+
+    var element = React.createElement(HelloMessage, { name: "John" });
+    ReactDOM.render(element, document.getElementById("container"));
+
+  </script>
+
+  <!-- <script>
+    var TodoList = React.createClass({
+      getInitialState: function () {
+        return { items: [] };
+      },
+      add: function () {
+        var nextItems = this.state.items.concat([this.state.text]);
+        this.setState({ items: nextItems, text: '' });
+      },
+      onChange: function (e) {
+        this.setState({ text: e.target.value });
+      },
+      render: function () {
+        var createItem = function (itemText) {
+          return React.createElement("div", null, itemText);
+        };
+        var lists = this.state.items.map(createItem);
+        var input = React.createElement("input", { onkeyup: this.onChange.bind(this), value: this.state.text });
+        var button = React.createElement("p", { onclick: this.add.bind(this) }, 'Add#' + (this.state.items.length + 1))
+        var children = [input, button].concat(lists)
+        return React.createElement("div", null, children);
+      }
+    });
+    ReactDOM.render(React.createElement(TodoList), document.getElementById("container"));
+  </script> -->
+
+</body>
+
+</html>
